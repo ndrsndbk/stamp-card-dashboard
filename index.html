@@ -155,9 +155,10 @@
       <div class="metric-card">
         <div class="metric-title">Stamps Today</div>
         <p class="metric-value" id="stamps_today">0</p>
-        <div class="metric-note">
-          Based on <code>last_visit_at</code> (unique customers today)
+        <div class="metric-note" id="stamps_today_note">
+        Live Sales today (date)
         </div>
+
       </div>
     </section>
   </main>
@@ -229,6 +230,21 @@
       // 2) Stamps Today via last_visit_at
       await loadStampsToday();
     }
+    // Insert today's date into the "Live Sales today" note
+function updateStampsTodayNote() {
+  const today = new Date();
+  const formatted = today.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric"
+  });
+
+  document.getElementById("stamps_today_note").innerText =
+    `Live Sales Today (${formatted})`;
+}
+
+updateStampsTodayNote();
+
 
     async function loadStampsToday() {
       const now = new Date();
