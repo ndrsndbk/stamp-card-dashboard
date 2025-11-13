@@ -1,167 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stamp Card Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            padding: 20px;
-        }
-        h1 {
-            text-align: left;
-            font-size: 28px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .metrics-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-        .metric-card {
-            background-color: #1f1f1f;
-            border-radius: 10px;
-            padding: 18px;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.05);
-        }
-        .metric-title {
-            font-size: 16px;
-            color: #bdbdbd;
-            margin-bottom: 6px;
-        }
-        .metric-value {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .metric-subtext {
-            font-size: 12px;
-            color: #7e7e7e;
-        }
-        .bottom-row {
-            margin-top: 40px;
-        }
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-        .logo {
-            width: 48px;
-            height: 48px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Potential Company — Stamp Card Dashboard</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --panel: #1e1e1e;
+      --border: #2e2e2e;
+      --accent: #00E676;
+      --text: #f5f5f5;
+      --muted: #9e9e9e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: #1c1c1c;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    header img.logo {
+      height: 48px;
+      width: auto;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+    }
+
+    .metrics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .metric-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 230, 118, 0.2);
+    }
+
+    .metric-title {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .metric-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 16px 0 24px;
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <!-- Make sure tpc_logo.png is in the SAME folder as this file -->
+    <img src="tpc_logo.png" alt="The Potential Company Logo" class="logo" />
+    <h1>The Potential Company — Stamp Card Dashboard</h1>
+  </header>
 
-<h1>
-    <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABUFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8f1RyEAAAAtXRSTlMAAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpbXF1eX2BhYmNkZWZnaGlqamtsbW5vcHFyc3R1dnd4eXp7fH1+f4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx8jJysvMzc7P0NHS09TV1tfY2drb3N3e3+Dh4uPk5ebn6Onq6+zt7u/w8fLz9PX29/j5+vv8/f7p6U9lAAAG20lEQVR4nO2d93+bOBSAI1IqiKJWKAtR0tLa2trYtttttttu//9/PZgZDBAkWaG33vXvOe9y0Z9JwgJDDO48znPM6xAERERERERERERERERERERERERERERERERqSB8bzl9RgxN2KJ2VN8iEsXVP8nTCJlx7edFpjdLyCxpMCzYCGPdrF5SLI05aO3Y61DwJgkS2NZoJA0c/biPH7xDxuPsbNx1LT94m8bm7lL54tGfYyKS2hMjW2wdvT4HQHPPY9jSPOu8guGbN0EJjRqiXO5pI9un4aT4zAtpNq2FsYvY0vMlT+t2hW8h1VlaTW84hiM4RwSRfl5IU7GEqiy0Mf4VuwmkwijZvWkpQZJrNbs7wR1h6qj34O4GjpObQZJrNhawvZXe7TJyPosg7X1GMl3Zb4SzgpeaTP8zYbG0cM28YEW8pJhtqpejq7s73ZyqdmFDLHjF6Zn9tbc8CS8ImWjK8obqp3cbvcv+ZrYzCivInXmpcDZcg4IbnQ3XOkc/NzgWXhljxJ3g6vLi1jYFzyLGWz48m42Khp7Ep1yx4xceNlIjJ2mJwS9Xu8Dd3YpC42mJwR7rpR0UiMqYjCxqnprCHUQkqJwTGmZcErAkJP0t6i8RaSZBJn0pKRGxrhRFHLJpDEBqZlNlB7qEIaJgR5qZl0pAo1Ikwia01JxG+CQGmJUyVJQAOjQiwSZk1JyG+CSJCwpa0FCQCOzwiwCZn1ZyCOySi4zExL6ty52kZ/t2rF4k80SWg9bUpFxJtbnYAjJpoNZTWkXElG7dgCMmmg1lNaRcSUbt2AIyaaDWU1pFxJRu3YAjJpoNZTWkXElG7dgCMmmg1lNaRcSUbt2AIyaaDWU1pFxJRu3YAjJpoNZTWkXElG7dgCMvov8AGrVYtE+b4URYAAAAASUVORK5CYII=">
-    Stamp Card Dashboard
-</h1>
-
-<div class="metrics-container">
-    <div class="metric-card" id="total_stampcards">
+  <main>
+    <section class="metrics-container">
+      <!-- Row 1 -->
+      <div class="metric-card">
         <div class="metric-title">Total Stamp Cards</div>
-        <div class="metric-value">0</div>
-    </div>
+        <p class="metric-value" id="total_cards">0</p>
+      </div>
 
-    <div class="metric-card" id="stampcards_30">
-        <div class="metric-title">New in Last 30 Days</div>
-        <div class="metric-value">0</div>
-    </div>
+      <div class="metric-card">
+        <div class="metric-title">Cards Created (Last 30 Days)</div>
+        <p class="metric-value" id="cards_last_30d">0</p>
+      </div>
 
-    <div class="metric-card" id="stampcards_7">
-        <div class="metric-title">New in Last 7 Days</div>
-        <div class="metric-value">0</div>
-    </div>
+      <div class="metric-card">
+        <div class="metric-title">Cards Created (Last 7 Days)</div>
+        <p class="metric-value" id="cards_last_7d">0</p>
+      </div>
 
-    <div class="metric-card" id="stampcards_1">
-        <div class="metric-title">New in Last 24 Hours</div>
-        <div class="metric-value">0</div>
-    </div>
+      <div class="metric-card">
+        <div class="metric-title">Cards Created (Last 24 Hours)</div>
+        <p class="metric-value" id="cards_last_1d">0</p>
+      </div>
 
-    <div class="metric-card" id="total_stamps">
+      <!-- Row 2 -->
+      <div class="metric-card">
         <div class="metric-title">Total Stamps</div>
-        <div class="metric-value">0</div>
-    </div>
+        <p class="metric-value" id="total_stamps">0</p>
+      </div>
 
-    <div class="metric-card" id="total_redemptions">
-        <div class="metric-title">Total Redemptions</div>
-        <div class="metric-value">0</div>
-    </div>
+      <div class="metric-card">
+        <div class="metric-title">Stamps Redeemed</div>
+        <p class="metric-value" id="stamps_redeemed">0</p>
+      </div>
 
-    <div class="metric-card" id="roi_stampcard">
-        <div class="metric-title">Stamp Card ROI</div>
-        <div class="metric-value">0%</div>
-        <div class="metric-subtext">Stamps ÷ Redemptions</div>
-    </div>
-</div>
+      <div class="metric-card" title="Percentage of stamps that resulted in a reward redemption">
+        <div class="metric-title">Redemption Rate %</div>
+        <p class="metric-value" id="redemption_rate_pct">0%</p>
+      </div>
 
-<!-- BOTTOM ROW – STAMPS TODAY -->
-<div class="bottom-row">
-    <div class="bottom-grid">
-        <div class="metric-card" id="stamps_today">
-            <div class="metric-title">Stamps Today</div>
-            <div class="metric-value">0</div>
+      <div class="metric-card" title="ROI = Total Stamps ÷ Redemptions × 100. Shows how many visits each reward generated.">
+        <div class="metric-title">ROI %</div>
+        <p class="metric-value" id="roi_pct">0%</p>
+      </div>
+
+      <!-- Row 3 (will appear as second row on wider screens if enough columns) -->
+      <div class="metric-card">
+        <div class="metric-title">Stamps Today</div>
+        <p class="metric-value" id="stamps_today">0</p>
+        <div class="metric-note">
+          Based on <code>last_visit_at</code> (unique customers today)
         </div>
-    </div>
-</div>
+      </div>
+    </section>
+  </main>
 
-<!-- SUPABASE JS -->
-<script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  <footer>
+    © 2025 The Potential Company — Powered by Supabase
+  </footer>
 
-    // TODO: REPLACE THESE
-    const SUPABASE_URL = "https://YOURPROJECT.supabase.co";
-    const SUPABASE_KEY = "YOUR-ANON-KEY";
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  <script type="module">
+    // 👉 Fill these in from Supabase Project Settings → API
+    const SUPABASE_URL = "https://lhbtgjvejsnsrlstwlwl.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoYnRnanZlanNuc3Jsc3R3bHdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxODYzMjQsImV4cCI6MjA3MTc2MjMyNH0.tEKLgAaaZZ1jnODoEYWkFYbdBWYZGI1Lu-6rBvrzXBI";
 
     async function loadDashboard() {
-        const { data, error } = await supabase.from("customers").select("*");
-        if (error) {
-            console.error(error);
-            return;
+      // 1) Main metrics via RPC
+      const rpcRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/rpc/get_stampcard_dashboard`,
+        {
+          method: "POST",
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
         }
+      );
 
-        const now = new Date();
-        const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const startUtcIso = new Date(Date.UTC(startOfToday.getFullYear(), startOfToday.getMonth(), startOfToday.getDate())).toISOString();
+      if (!rpcRes.ok) {
+        console.error("Failed to load dashboard data:", await rpcRes.text());
+      } else {
+        const [data] = await rpcRes.json();
 
-        const stampsToday = data.filter(c => c.last_visit_at && new Date(c.last_visit_at) >= new Date(startUtcIso)).length;
+        if (data) {
+          document.getElementById("total_cards").innerText =
+            (data.total_cards ?? 0).toLocaleString();
 
-        const totalStampcards = data.length;
-        const last30 = data.filter(c => Date.now() - new Date(c.created_at).getTime() < 30*24*3600*1000).length;
-        const last7  = data.filter(c => Date.now() - new Date(c.created_at).getTime() < 7*24*3600*1000).length;
-        const last1  = data.filter(c => Date.now() - new Date(c.created_at).getTime() < 1*24*3600*1000).length;
+          document.getElementById("cards_last_30d").innerText =
+            (data.cards_last_30d ?? 0).toLocaleString();
 
-        const totalStamps = data.reduce((a, c) => a + (c.number_of_visits || 0), 0);
-        const totalRedemptions = data.reduce((a, c) => a + Math.floor((c.number_of_visits || 0) / 10), 0);
+          document.getElementById("cards_last_7d").innerText =
+            (data.cards_last_7d ?? 0).toLocaleString();
 
-        const roi = totalRedemptions === 0 ? "∞" : ((totalStamps / totalRedemptions) * 100).toFixed(1) + "%";
+          document.getElementById("cards_last_1d").innerText =
+            (data.cards_last_1d ?? 0).toLocaleString();
 
-        document.getElementById("total_stampcards").querySelector(".metric-value").textContent = totalStampcards;
-        document.getElementById("stampcards_30").querySelector(".metric-value").textContent = last30;
-        document.getElementById("stampcards_7").querySelector(".metric-value").textContent = last7;
-        document.getElementById("stampcards_1").querySelector(".metric-value").textContent = last1;
+          document.getElementById("total_stamps").innerText =
+            (data.total_stamps ?? 0).toLocaleString();
 
-        document.getElementById("total_stamps").querySelector(".metric-value").textContent = totalStamps;
-        document.getElementById("total_redemptions").querySelector(".metric-value").textContent = totalRedemptions;
+          document.getElementById("stamps_redeemed").innerText =
+            (data.stamps_redeemed ?? 0).toLocaleString();
 
-        document.getElementById("roi_stampcard").querySelector(".metric-value").textContent = roi;
-        document.getElementById("stamps_today").querySelector(".metric-value").textContent = stampsToday;
+          document.getElementById("redemption_rate_pct").innerText =
+            data.redemption_rate_pct
+              ? `${Intl.NumberFormat("en-US", {
+                  maximumFractionDigits: 1,
+                }).format(data.redemption_rate_pct)}%`
+              : "0%";
+
+          document.getElementById("roi_pct").innerText =
+            data.roi_pct
+              ? `${Intl.NumberFormat("en-US", {
+                  maximumFractionDigits: 0,
+                }).format(data.roi_pct)}%`
+              : "0%";
+        }
+      }
+
+      // 2) Stamps Today via last_visit_at
+      await loadStampsToday();
+    }
+
+    async function loadStampsToday() {
+      const now = new Date();
+      const startLocal = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        0,
+        0,
+        0,
+        0
+      );
+      const endLocal = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0,
+        0,
+        0,
+        0
+      );
+
+      const startUtcIso = startLocal.toISOString();
+      const endUtcIso = endLocal.toISOString();
+
+      const url = `${SUPABASE_URL}/rest/v1/customers?select=customer_id,last_visit_at&last_visit_at=gte.${startUtcIso}&last_visit_at=lt.${endUtcIso}`;
+
+      const res = await fetch(url, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+        },
+      });
+
+      if (!res.ok) {
+        console.error("Failed to load 'Stamps Today':", await res.text());
+        return;
+      }
+
+      const rows = await res.json();
+      const uniqueCustomersToday = rows.length || 0;
+
+      document.getElementById("stamps_today").innerText =
+        uniqueCustomersToday.toLocaleString();
     }
 
     loadDashboard();
-</script>
-
+  </script>
 </body>
 </html>
