@@ -758,9 +758,9 @@ async function handleStamp(env, customerId, token) {
       await sendText(
         env,
         customerId,
-        `Great — you’ve unlocked *double stamps!* 🎉🔥
+        `*5 Day Streak* 🏆 — you’ve unlocked *double stamps!* 🎉🔥
 
-Well done.`
+Well done!`
       );
 
       // 2) Updated stamp card image
@@ -774,9 +774,10 @@ Well done.`
       await sendInteractiveButtons(
         env,
         customerId,
-        `🎉 *Demo complete.*
+        `💪 *Streak & Gamification Demo complete.*
 
-Here's the link to share the demo:
+_Here's the link to share the demo_ 👇
+
 ${shareLink}
 
 What would you like to do next?`,
